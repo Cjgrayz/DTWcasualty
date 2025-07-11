@@ -394,9 +394,9 @@ cjw8L1Jvb3QgMSAwIFIvU2l6ZSA1Pj4Nc3RhcnR4cmVmCjI5OA0KJSVFT0Y=';
 
 <div class="section">
   <h2>🔊 Soundboard</h2>
-  <button onclick="playSound(sniper-fire-105896.mp3)">Sniper Alert</button>
-  <button onclick="playSound(breaking-glass-84819.mp3)">Glass Shatter</button>
-  <button onclick="playSound(alarm-26718.mp3)">Evac Order</button>
+  <button onclick="playSound(sniper-fire.mp3)">Sniper Alert</button>
+  <button onclick="playSound(breaking-glass.mp3)">Glass Shatter</button>
+  <button onclick="playSound(alarm-.mp3)">Evac Order</button>
 </div>
 <script>
   function playSound(filename) {
