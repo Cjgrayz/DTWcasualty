@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>August 21st – Part 1 (Header • Ticker • Counter)</title>
+  <style>
+    /* ─── base look ─────────────────────────────────────────────── */
+    body      {background:#111;color:#eee;font-family:Arial, sans-serif;margin:0}
+    h1        {text-align:center;margin:25px 0 10px}
+    /* ─── header & logos ────────────────────────────────────────── */
+    header    {background:#222;padding:12px 0;display:flex;justify-content:center;gap:22px}
+    header img{height:52px;cursor:pointer;transition:transform .25s}
+    header img:hover{transform:scale(1.12)}
+    /* ─── news ticker ───────────────────────────────────────────── */
+    #ticker   {background:#c00;color:#fff;font-weight:bold;padding:10px 0;
+               overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+               animation:scroll 18s linear infinite}
+    @keyframes scroll{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+    /* ─── casualty counter ──────────────────────────────────────── */
+    #counter  {text-align:center;font-size:1.6em;margin:30px 0;font-weight:bold}
+  </style>
+</head>
+<body>
+
+<!-- header with local PNG logos -->
+<header>
+  <img src="msp.png"  alt="Michigan State Police" title="Michigan State Police"
+       onclick="window.open('https://www.michigan.gov/msp','_blank')">
+  <img src="fbi.png"  alt="FBI"                  title="Federal Bureau of Investigation"
+       onclick="window.open('https://www.fbi.gov','_blank')">
+  <img src="dhs.png"  alt="Homeland Security"    title="Department of Homeland Security"
+       onclick="window.open('https://www.dhs.gov','_blank')">
+  <img src="fox2.png" alt="Fox 2 Detroit"        title="Fox 2 Detroit"
+       onclick="window.open('https://www.fox2detroit.com','_blank')">
+</header>
+
+<!-- scrolling news ticker -->
+<div id="ticker">
+  Breaking: All shooters neutralized • Casualties exceed 50,000 at DTW • Lawsuits filed against gun makers •
+  Supreme Court probes NRA ties • Memorial planned for August 21st victims •
+</div>
+
+<!-- animated casualty counter -->
+<div id="counter">Casualties  0</div>
+
+<script>
+  /* animate casualty counter to 50 000 */
+  const counter = document.getElementById('counter');
+  let n = 0, target = 50000;
+  function step(){
+    if(n < target){
+      n += Math.floor((target-n)/18)+8;
+      if(n>target) n = target;
+      counter.textContent = 'Casualties  ' + n.toLocaleString();
+      requestAnimationFrame(step);
+    }
+  }
+  step();
+</script>
+
+<h1>August 21st Interactive Archive</h1>
+
+</body>
+</html>
+<!-- Survivor Card Section -->
+<style>
+  .survivors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px;
+    background: #181818;
+  }
+  .card {
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 15px;
+    width: 220px;
+    text-align: center;
+    color: #eee;
+    box-shadow: 0 0 8px #000;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 12px #900;
+  }
+  .badge {
+    background: #c00;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 50px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="survivors">
+  <div class="card">
+    <h3>Jimmy</h3>
+    <p>Escaped the food court and carried a child through gunfire.</p>
+    <div class="badge">Shooter Down</div>
+  </div>
+  <div class="card">
+    <h3>The Teen</h3>
+    <p>Survived mass shooting. Helped Jimmy take out Shooter 1.</p>
+    <div class="badge">Shooter Down</div>
+  </div>
+  <div class="card">
+    <h3>Lucinda</h3>
+    <p>Only VIP survivor. Broke the glass and escaped to the tunnels.</p>
+  </div>
+</div>
+<style>
+  #memorial-wall {
+    background: #111;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  .victim-name {
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px 15px;
+    width: 160px;
+    text-align: center;
+    font-size: 0.9em;
+    box-shadow: 0 0 5px #000;
+  }
+</style>
+
+<h2 style="text-align:center; color:#eee; margin-top:40px;">August 21st Memorial Wall — Never Forgotten</h2>
+<div id="memorial-wall"></div>
+
+<script>
+  const firstNames = ["Amanda","Bryce","Caleb","Dina","Elijah","Fatima","Gavin","Harper","Imani","Jonas","Kaitlyn","Leo","Maya","Nathan","Olivia","Parker","Quinn","Riley","Sofia","Tariq","Uriel","Valentina","Wesley","Ximena","Yara","Zion"];
+  const lastNames = ["Reyes","Patterson","Nguyen","Hoffman","Stone","Rahim","Blake","Liu","King","Rivera","O'Malley","Martinez","Ford","Chen","Singh","Walker","Green","Murphy","Thomas","Young"];
+
+  function getRandomName() {
+    const first = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const last = lastNames[Math.floor(Math.random() * lastNames.length)];
+    return `${first} ${last}`;
+  }
+
+  const wall = document.getElementById('memorial-wall');
+  for(let i=0; i<50; i++){
+    const div = document.createElement('div');
+    div.className = 'victim-name';
+    div.textContent = getRandomName();
+    wall.appendChild(div);
+  }
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>August 21st – Part 4 Interactive Extras</title>
+<style>
+  body {
+    background: #111;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  h1, h2 {
+    text-align: center;
+  }
+  .section {
+    background: #222;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 900px;
+    text-align: center;
+  }
+  button {
+    background: #444;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin: 10px 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  button:hover {
+    background: #c00;
+  }
+  input[type="radio"] {
+    margin-left: 15px;
+  }
+  label {
+    font-size: 1.1em;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<h1>August 21st Interactive Extras</h1>
+
+<div class="section">
+  <h2>🗺️ Terminal Map</h2>
+  <button onclick="alert('Terminal A: 12,000 casualties. 3 survivors escaped via vent shaft.')">Terminal A</button>
+  <button onclick="alert('Terminal B: Full sniper coverage. 1,500 injured. Lucinda broke the VIP window here.')">Terminal B</button>
+  <button onclick="alert('Skybridge: Over 75 confirmed dead. Glass shattered during sniper fire.')">Skybridge</button>
+  <button onclick="alert('Basement Trains: 30,000 survivors gathered here.')">Basement Level</button>
+</div>
+
+<div class="section">
+  <h2>🗳️ Community Poll</h2>
+  <p>Should August 21st become a national remembrance day?</p>
+  <form>
+    <label><input type="radio" name="poll" value="yes"> Yes</label>
+    <label><input type="radio" name="poll" value="no"> No</label>
+    <label><input type="radio" name="poll" value="local"> Only in Michigan</label>
+  </form>
+</div>
+
+<div class="section">
+  <h2>🔊 Soundboard</h2>
+  <button onclick="playSound('https://freesound.org/data/previews/414/414209_5121236-lq.mp3')">Sniper Alert</button>
+  <button onclick="playSound('https://freesound.org/data/previews/271/271088_5121236-lq.mp3')">Glass Shatter</button>
+  <button onclick="playSound('https://freesound.org/data/previews/234/234244_3905084-lq.mp3')">Evac Order</button>
+</div>
+
+<script>
+function playSound(url) {
+  const audio = new Audio(url);
+  audio.play();
+}
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>August 21st – Part 5 Extras</title>
+<style>
+  body {
+    background: #111;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  h1, h2 {
+    text-align: center;
+    margin: 15px 0;
+  }
+  .section {
+    background: #222;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 25px auto;
+    max-width: 900px;
+  }
+  video {
+    width: 100%;
+    border-radius: 8px;
+  }
+  #chat-box {
+    height: 230px;
+    overflow-y: auto;
+    background: #1b1b1b;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9em;
+  }
+  .msg {
+    margin: 6px 0;
+    padding: 8px;
+    border-radius: 6px;
+    background: #333;
+  }
+  .me {
+    background: #444;
+  }
+  #chat-input {
+    width: 78%;
+    padding: 10px;
+    border: 1px solid #555;
+    background: #000;
+    color: #fff;
+    border-radius: 6px;
+  }
+  #chat-send {
+    padding: 10px 15px;
+    background: #c00;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  #searchBar {
+    padding: 10px;
+    width: 70%;
+    border: 1px solid #555;
+    background: #000;
+    color: #fff;
+    border-radius: 6px;
+  }
+  .btn {
+    padding: 10px 15px;
+    background: #444;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+</style>
+</head>
+<body>
+
+<h1>August 21st Extras</h1>
+
+<div class="section">
+  <h2>📺 Official Documentary</h2>
+  <video controls>
+    <source src="documentary.mp4" type="video/mp4" />
+    Your browser doesn’t support HTML5 video.
+  </video>
+</div>
+
+<div class="section">
+  <h2>💬 Survivor Live-Chat</h2>
+  <div id="chat-box">
+    <div class="msg">@Jimmy: Still can’t believe we made it…</div>
+    <div class="msg">@Lucinda: Glass everywhere. Thought I’d bleed out.</div>
+  </div>
+  <div style="margin-top:10px;">
+    <input id="chat-input" placeholder="Type a message…" />
+    <button id="chat-send">Send</button>
+  </div>
+</div>
+
+<div class="section">
+  <h2>🔎 Archive Search</h2>
+  <input id="searchBar" placeholder="Search victims, survivors, or files…" />
+  <button class="btn" onclick="alert('Search feature coming soon!')">Search</button>
+</div>
+
+<div class="section" style="text-align:center;">
+  <h2>📄 Download Incident Report (PDF)</h2>
+  <button class="btn" onclick="downloadPDF()">Download</button>
+</div>
+
+<script>
+  // Chat send logic
+  const chatBox = document.getElementById('chat-box');
+  const chatInput = document.getElementById('chat-input');
+  const chatSend = document.getElementById('chat-send');
+  
+  chatSend.onclick = () => {
+    const txt = chatInput.value.trim();
+    if (!txt) return;
+    const div = document.createElement('div');
+    div.className = 'msg me';
+    div.textContent = '@You: ' + txt;
+    chatBox.appendChild(div);
+    chatInput.value = '';
+    chatBox.scrollTop = chatBox.scrollHeight;
+  };
+
+  // Fake PDF download function
+  function downloadPDF() {
+    const blankPDF = 'JVBERi0xLjQKJeLjz9MNCjEgMCBvYmo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoNCjIgMCBvYmo8PC9UeXBlL1BhZ2VzL0NvdW50IDEvS2lkcyBbMyAwIFJdPj4NZW5kb2JqDQozIDAgb2JqPDwvVHlwZS9QYWdlL1BhcmVudCAyIDAgUi9NZWRpYUJveCBbMCAwIDU5NSAODcyXS9Db250ZW50cyA0IDAgUiA+PmVuZG9iag0KNC
+AwIG9iajw8L0xlbmd0aCAxMSA+PnN0cmVhbQpBT0YNCmVuZHN0cmVhbQ1lbmRvYmoNCnhyZWYNCjAgNQowMDAwMDAwMDAwIDY1NTM1IGYNCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwMDA4MSAwMDAwMCBuIAowMDAwMDAwMTQwIDAwMDAwIG4gCjAwMDAwMDAxOTkgMDAwMDAgbiAKdHJhaWxl
+cjw8L1Jvb3QgMSAwIFIvU2l6ZSA1Pj4Nc3RhcnR4cmVmCjI5OA0KJSVFT0Y=';
+    const link = document.createElement('a');
+    link.href = 'data:application/pdf;base64,' + blankPDF;
+    link.download = 'August21_Report.pdf';
+    link.click();
+  }
+
+<div class="section">
+  <h2>🔊 Soundboard</h2>
+  <button onclick="playSound(sniper-fire-105896.mp3)">Sniper Alert</button>
+  <button onclick="playSound(breaking-glass-84819.mp3)">Glass Shatter</button>
+  <button onclick="playSound(alarm-26718.mp3)">Evac Order</button>
+</div>
+<script>
+  function playSound(filename) {
+    const audio = new Audio(filename);
+    audio.play().catch(e => {
+      alert('Error playing sound: ' + e.message);
+    });
+  }
+</script>
