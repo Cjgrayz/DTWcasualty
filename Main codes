@@ -141,6 +141,8 @@
 <button onclick="playSound('sounds/sniper-fire.mp3')">Sniper Alert</button>
 <button onclick="playSound('sounds/breaking-glass.mp3')">Glass Shatter</button>
 <button onclick="playSound('sounds/alarm.mp3')">Evac Order</button>
-
+<img src="images/mi_state_police.png" alt="MI State Police Logo">
+</body>
+</html>
 </body>
 </html>
